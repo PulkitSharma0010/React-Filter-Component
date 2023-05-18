@@ -1,0 +1,27 @@
+.mainFilterDiv{
+    width: 30%;
+}
+.filterDiv1{
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0rem;
+}
+.mainFilterHeading{
+    color: forestgreen;
+    display: inline;
+    margin: 0px;
+    padding-left: 1rem;
+}
+.resetFilterButton{
+    height: 2rem;
+    width: fit-content;
+}
+.filterDivs{
+    padding-left: 0.1rem;
+    margin: 1rem;
+}
+.filterHeadings{
+    font-weight: bolder;
+    font-size: 20px;
+    color: rgb(30,58,158);
+}
