@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Filter.css"
 import CheckBoxComponent from './CheckBoxComponent'
+import { useState } from 'react';
 
 export default function Filter() {
 
@@ -30,7 +31,7 @@ export default function Filter() {
       'Marital Status': ['All', 'Never Married', 'Widowed', 'Divorced', 'Separated']
     },
     {
-      'Bellow Powerty Line': ['Yes', 'No']
+      'Bellow Poverty Line': ['Yes', 'No']
     },
     {
       'Employement Status': ['All', 'Employed', 'Self-Employed/Entrepreneur', 'Unemployed']
@@ -46,25 +47,26 @@ export default function Filter() {
     },
   ];
 
+  let clickStatus=true;
+  const resetClick=()=>{
+    clickStatus=false;
+  }
 
   return (
     <div className='mainFilterDiv'>
       <div className='filterDiv1'>
-        <h2 className='mainFilterHeading'>Filters</h2>
-        <button className='resetFilterButton'>Reset Filters</button>
+        <h2 className='mainFilterHeading'>Filter By</h2>
+        <button className='resetFilterButton' onClick={resetClick}>Reset Filters</button>
       </div>
 
-        {FilterList.map((item, key) => (
+      {FilterList.map((item, key) => (
 
-          <div className='filterDivs'>
-            <span className='filterHeadings'>{Object.keys(item)[0]}</span>
-
-
-            {item[Object.keys(item)[0]].map(items => <CheckBoxComponent className='checkboxComponents' value={`${items}`} />)}
-
-          </div>
-        ))
-        }
+        <div className='filterDivs'>
+          <span className='filterHeadings'>{Object.keys(item)[0]}</span>
+          {item[Object.keys(item)[0]].map(items => <CheckBoxComponent resetCheck={clickStatus}  value={`${items}`} />)}
+        </div>
+      ))
+      }
     </div>
-    )
+  )
 }

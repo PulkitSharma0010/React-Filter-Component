@@ -1,0 +1,19 @@
+.schemeDiv{
+    padding: 1.5rem;
+    border: 1px solid rgb(209 213 219);
+    border-radius: 20px;
+}
+.departmentName{
+    font-weight: 400;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+.schemeName{
+    font-size: 1.25rem;
+    color: forestgreen;
+    margin:0;
+}
+.schemeDescription{
+    font-size: inherit;
+    color: rgb(75 85 99)
+}
