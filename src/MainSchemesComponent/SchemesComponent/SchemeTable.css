@@ -1,0 +1,29 @@
+.schemeTable{
+    border: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+.schemeTableRow{
+    border: 0;
+    border-collapse: collapse;
+}
+.schemeTableElements{
+    border: 1px solid rgb(209 213 219);
+    text-align: center;
+    height: fit-content;
+    padding: 0.5rem;
+}
+.schemeTableDiv{
+    margin:0 1.5rem 1.5rem 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgb(209 213 219);
+}
+.schemeApply{
+    text-decoration: none;
+    /* border: 1px solid black; */
+    color: white;
+    background-color: #0d6efd;
+    border-radius:0.5rem ;
+    padding: 0.25rem;
+    
+}

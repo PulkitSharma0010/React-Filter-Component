@@ -1,0 +1,9 @@
+.mainSchemesDiv{
+    margin: 1rem 0;
+    border: 1px solid rgb(209 213 219);
+    border-radius: 20px;
+}
+.outerMainSchemesDiv{
+    width: 80%;
+    padding: 1rem;
+}

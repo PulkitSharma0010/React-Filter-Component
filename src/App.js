@@ -1,7 +1,5 @@
 import './App.css';
-import Filter from "./FilterComponent/Filter"
-import MainSchemesPage from './MainSchemesPage';
-import Schemes from './SchemesComponent/Schemes';
+import MainSchemesPage from './MainSchemesComponent/MainSchemesPage';
 
 function App() {
   return (
