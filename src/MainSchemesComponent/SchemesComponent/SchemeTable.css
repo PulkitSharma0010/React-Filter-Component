@@ -20,10 +20,9 @@
 }
 .schemeApply{
     text-decoration: none;
-    /* border: 1px solid black; */
     color: white;
     background-color: #0d6efd;
-    border-radius:0.5rem ;
+    border-radius:0.35rem ;
     padding: 0.25rem;
     
 }

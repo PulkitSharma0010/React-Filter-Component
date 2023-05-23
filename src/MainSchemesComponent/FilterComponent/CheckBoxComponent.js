@@ -1,21 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./Filter.css"
 
-export default function CheckBoxComponent({value,resetCheck}) {
-
-  const [isClicked,setisClicked]=useState(false)
-
-  const handleClick=()=>{
-    setisClicked(!isClicked)
-  }
-
-  if(resetCheck==false){
-    setisClicked(false)
-  }
+export default function CheckBoxComponent({ value, checked, onChange }) {
 
   return (
-    <div className='checkboxComponentDiv' onClick={()=>handleClick()}>
-      <input type="checkbox" className='checks' checked={isClicked}/><span className='checkboxComponents'>{value}</span>
+    <div className='checkboxComponentDiv' onClick={onChange}>
+      <input type="checkbox" className='checks' checked={checked} /><span className='checkboxComponents'>{value}</span>
     </div>
   )
 }
