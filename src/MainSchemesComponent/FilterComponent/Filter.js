@@ -1,12 +1,12 @@
 import React from 'react'
 import "./Filter.css"
 import CheckBoxComponent from './CheckBoxComponent'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SelectComponent from './SelectComponent'
 
 export default function Filter() {
 
-  const FilterList = [
+    const FilterList = [
     {
       'Gender': ['Male', 'Female'],
     },
@@ -53,6 +53,7 @@ export default function Filter() {
       'Application Mode': ['Online', 'Offline']
     },
   ];
+
 
   const [checkboxStatus, setCheckboxStatus] = useState({});
 
