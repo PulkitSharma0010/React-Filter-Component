@@ -40,6 +40,13 @@ export default function Schemes() {
         },
     ]);
 
+    // useEffect(() => {
+    //     fetch('https://api.example.com/data')
+    //       .then(response => response.json())
+    //       .then(json => setSchemeList(json))
+    //       .catch(error => console.error(error));
+    //   }, []);
+
 
     const [schemeTableDisplay, setschemeTableDisplay] = useState(Array(SchemeList.length).fill(null))
     const buttonHandleClick = (key) => {
