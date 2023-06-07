@@ -4,17 +4,64 @@ import CheckBoxComponent from './CheckBoxComponent'
 import { useState } from 'react';
 import SelectComponent from './SelectComponent'
 
-export default function Filter() {
+export default function Filter({ onFilterClick, setContent }) {
 
-    const FilterList = [
+  const [filterApplyList, setFilterApplyList] = useState([
+    {
+      'Gender': [],
+    },
+    {
+      'Age': [],
+    },
+    {
+      'Caste': [],
+    },
+    {
+      'Level': [],
+    },
+    {
+      'Residence': [],
+    },
+    {
+      'Minority': [],
+    },
+    {
+      'Disability': [],
+    },
+    {
+      'Disability Percentage': [],
+    },
+    {
+      'Benefit Type': [],
+    },
+    {
+      'Marital Status': [],
+    },
+    {
+      'Below Poverty Line': [],
+    },
+    {
+      'Employment Status': [],
+    },
+    {
+      Occupation: [],
+    },
+    {
+      Qualification: [],
+    },
+    {
+      'Application Mode': [],
+    },
+  ]);
+  const FilterList = [
     {
       'Gender': ['Male', 'Female'],
     },
     {
-      'Age': ['','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100', '101', '102', '103', '104', '105', '106', '107', '108', '109', '110', '111', '112', '113', '114', '115', '116', '117', '118', '119', '120']
+      'Age': ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100', '101', '102', '103', '104', '105', '106', '107', '108', '109', '110', '111', '112', '113', '114', '115', '116', '117', '118', '119', '120']
     },
     {
-      'Caste': ['All', 'Scheduled Caste (SC)', 'Scheduled Tribe (SC)', 'Other Backward Classes (OBC)', 'Particularly Vulnerable Tribal Group (PVTG)', 'General'],
+      'Caste': ['All', 'Scheduled Caste (SC)', 'Scheduled Tribe (ST)', 'Other Backward Classes (OBC)', 'Particularly Vulnerable Tribal Group (PVTG)', 'General'],
     },
     {
       'Level': ['State', 'Centre']
@@ -29,7 +76,7 @@ export default function Filter() {
       'Disability': ['No', 'Yes']
     },
     {
-      'Disability Percentage': ['','5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
+      'Disability Percentage': ['', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
     },
     {
       'Benefit Type': ['Cash', 'Composite', 'In Kind']
@@ -54,29 +101,88 @@ export default function Filter() {
     },
   ];
 
-
   const [checkboxStatus, setCheckboxStatus] = useState({});
 
   const resetClick = () => {
     setCheckboxStatus({});
+    console.log("Fetching data from the API...");
+    fetch('https://himstaging1.hp.gov.in/schemes/api/schemes/distinctGenders')
+      .then(response => response.json())
+      .then(data => {
+        console.log("Data received:", data);
+        if (Array.isArray(data.data)) {
+          setContent(data.data);
+        } else {
+          console.error("Invalid data format:", data);
+        }
+      })
+      .catch(error => console.error("Error:", error));
   };
 
-  const handleCheckboxChange = (category, value) => {
-    if (((category === 'Age')||(category === 'Disability Percentage'))) {
+  const handleCheckboxChange = (category, value, isChecked) => {
+
+    console.log("vALUE: ", typeof value);
+
+    if (((category === 'Age') || (category === 'Disability Percentage'))) {
       setCheckboxStatus((prevStatus) => ({
         ...prevStatus,
         [category]: value,
       }));
-    } else {
-    setCheckboxStatus((prevStatus) => ({
-      ...prevStatus,
-      [category]: {
-        ...prevStatus[category],
-        [value]: !prevStatus[category]?.[value],
-      },
-    }));
-  }
+
+      setFilterApplyList((prevState) => {
+        const categoryIndex = prevState.findIndex(obj => category in obj);
+        const updatedItem = {
+          ...prevState[categoryIndex],
+          [category]: value,
+        };
+        return [
+          ...prevState.slice(0, categoryIndex),
+          updatedItem,
+          ...prevState.slice(categoryIndex + 1),
+        ];
+      });
+
+    }
+
+    else {
+      setCheckboxStatus((prevStatus) => ({
+        ...prevStatus,
+        [category]: {
+          ...prevStatus[category],
+          [value]: !prevStatus[category]?.[value],
+        },
+      }));
+
+      setFilterApplyList((prevState) => {
+        const categoryIndex = prevState.findIndex(obj => category in obj);
+        console.log("Checked Value is: ", isChecked)
+        if (isChecked == false) {
+          if (prevState[categoryIndex][category]?.includes(value)) {
+            prevState[categoryIndex][category] = prevState[categoryIndex][category].filter(item => item !== value);
+            return prevState;
+          } else {
+            return prevState
+          }
+        }
+        const updatedItem = {
+          ...prevState[categoryIndex],
+          [category]: [...prevState[categoryIndex][category], value],
+
+        };
+        return [
+          ...prevState.slice(0, categoryIndex),
+          updatedItem,
+          ...prevState.slice(categoryIndex + 1),
+        ];
+      });
+    }
+
+    // onFilterClick(value)
+      onFilterClick(filterApplyList)
+
   };
+
+  console.log("Filtered List : ", filterApplyList);
 
   return (
     <div className='mainFilterDiv'>
@@ -88,7 +194,7 @@ export default function Filter() {
       {FilterList.map((item, key) => (
         <div className="filterDivs" key={key}>
           <span className="filterHeadings">{Object.keys(item)[0]}</span>
-          {((Object.keys(item)[0] === 'Age')||(Object.keys(item)[0] === 'Disability Percentage')) ? (
+          {((Object.keys(item)[0] === 'Age') || (Object.keys(item)[0] === 'Disability Percentage')) ? (
             <SelectComponent
               options={item[Object.keys(item)[0]]}
               value={checkboxStatus[Object.keys(item)[0]] || ''}
@@ -99,7 +205,7 @@ export default function Filter() {
               key={index}
               value={value}
               checked={checkboxStatus[Object.keys(item)[0]]?.[value] || false}
-              onChange={() => handleCheckboxChange(Object.keys(item)[0], value)}
+              onChange={(e) => handleCheckboxChange(Object.keys(item)[0], value, e.target.checked)}
             />
           )))}
         </div>

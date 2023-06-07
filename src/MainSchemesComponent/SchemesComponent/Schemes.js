@@ -4,10 +4,9 @@ import "./Schemes.css"
 import SchemeTable from './SchemeTable'
 
 
-export default function Schemes() {
+export default function Schemes({ filter, schemeContent, val, resetval, resetfilter }) {
 
-
-    const [SchemeList,setSchemeList] = useState([
+    const [SchemeList, setSchemeList] = useState([
         {
             department: "Social Justice & Empowerment (Directorate for the Empowerment of SCs, OBCs, Minorities & the Specially Abled) ",
             name: "Swaran Jayanti Ashray Yojana",
@@ -16,7 +15,7 @@ export default function Schemes() {
             feeAndPayment: "Zero",
             documentsRequired: "Aadhar Card",
             submitTo: "Social Justice Department",
-            link:"https://kalyan.hp.gov.in"
+            link: "https://kalyan.hp.gov.in"
         },
         {
             department: "Department of Technical Education",
@@ -26,7 +25,7 @@ export default function Schemes() {
             feeAndPayment: "NA",
             documentsRequired: "Aadhar Card",
             submitTo: "Department of Technical Education",
-            link:"https://www.apprenticeshipindia.gov.in"
+            link: "https://www.apprenticeshipindia.gov.in"
         },
         {
             department: "HPSEBL",
@@ -36,16 +35,168 @@ export default function Schemes() {
             feeAndPayment: "Zero",
             documentsRequired: "Aadhar Card",
             submitTo: "State Department",
-            link:"https://www.hpseb.in/irj/go/km/docs/internet/New_Website/Pages/Home.html"
+            link: "https://www.hpseb.in/irj/go/km/docs/internet/New_Website/Pages/Home.html"
         },
     ]);
 
     // useEffect(() => {
-    //     fetch('https://api.example.com/data')
+    //     console.log("Fetching data from the API...");
+    //     fetch('<API_URL>')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             console.log("Data received:", data);
+    //             if (Array.isArray(data.data)) {
+    //                 setSchemeList(data.data);
+    //             } else {
+    //                 console.error("Invalid data format:", data);
+    //             }
+    //         })
+    //         .catch(error => console.error("Error:", error));
+    // }, []);
+
+
+    // useEffect(() => {
+    //     fetch('https://himstaging1.hp.gov.in/schemes/api/schemes/distinctGenders')
+    //         .then(response => response.json())
+    //         .then(data => setSchemeList(data))
+    //         .catch(error => console.error(error));
+    // }, []);
+
+    // useEffect(() => {
+    //     fetch('https://himstaging1.hp.gov.in/schemes/api/distinctGenders')
     //       .then(response => response.json())
     //       .then(json => setSchemeList(json))
     //       .catch(error => console.error(error));
     //   }, []);
+
+    // useEffect(() => {
+    //     console.log("Fetching data from the API...");
+    //     fetch('https://himstaging1.hp.gov.in/schemes/api/schemes/distinctGenders')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             console.log("Data received:", data);
+    //             if (Array.isArray(data.data)) {
+    //                 setSchemeList(data.data);
+    //             } else {
+    //                 console.error("Invalid data format:", data);
+    //             }
+    //         })
+    //         .catch(error => console.error("Error:", error));
+    // }, []);
+
+    //Change:
+
+    //    let filteredSchemes=[];
+    let filteredSchemes = filter;
+    console.log("Filter Schemes is: ",filteredSchemes)
+    console.log("out of map")
+
+    filteredSchemes.map((item, key) => {        
+        if (Object.keys(item)[0].length >= 1) {
+          console.log("in Map");
+          
+          fetch('https://himstaging1.hp.gov.in/schemes/api/schemes/distinctGenders')
+            .then(response => response.json())
+            .then(data => {
+              console.log("Data received:", data);
+              if (Array.isArray(data.data)) {
+                setSchemeList(data.data);
+              } else {
+                console.error("Invalid data format:", data);
+              }
+            })
+            .catch(error => console.error("Error:", error));
+            
+          
+        //   resetval(null);
+        }
+      });
+      
+
+    // filteredSchemes.map((item, key) => (
+    //     console.log("Array len is: ",Object.keys(item).length),
+    //     () => {
+    //         console.log("in map")
+
+    //         console.log(Object.keys(item).length);
+    //         if (Object.keys(item)[0].length >= 1) {
+    //             console.log("in MAp");
+
+    //             fetch('https://himstaging1.hp.gov.in/schemes/api/schemes/distinctGenders')
+    //                 .then(response => response.json())
+    //                 .then(data => {
+    //                     console.log("Data received:", data);
+    //                     if (Array.isArray(data.data)) {
+    //                         setSchemeList(data.data);
+    //                     } else {
+    //                         console.error("Invalid data format:", data);
+    //                     }
+    //                 })
+    //                 .catch(error => console.error("Error:", error));
+    //             resetval(null);
+    //         }
+
+    //     }
+    // ))
+
+
+    // const updateSchemeList = (updatedSchemes) => {
+    //     setSchemeList(updatedSchemes);
+    // }
+
+    // if (filter == "Female") {
+    // fetch('https://himstaging1.hp.gov.in/schemes/api/schemes/distinctCategory')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // console.log("Data received:", data);
+    //             if (Array.isArray(data.data)) {
+
+
+    //                 filteredSchemes = filteredSchemes.concat(data.data);
+    //                 updateSchemeList(filteredSchemes);
+    //             } else {
+    //                 // console.error("Invalid data format:", data);
+    //             }
+    //         })
+    //         .catch(error => console.error("Error:", error));
+    //     resetfilter(null);
+    // }
+
+    // if (filter == "Male") {
+    //     console.log("Fetching data from the API...");
+    //     fetch('https://himstaging1.hp.gov.in/schemes/api/schemes/distinctGenders')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // console.log("Data received:", data);
+    //             if (Array.isArray(data.data)) {
+    //                 filteredSchemes = filteredSchemes.concat(data.data);
+    //                 updateSchemeList(filteredSchemes);
+    //             } else {
+    //                 console.error("Invalid data format:", data);
+    //             }
+    //         })
+    //         .catch(error => console.error("Error:", error));
+    //     resetfilter(null);
+    // }
+
+    if (val != null) {
+        // console.log("Fetching data from the API...");
+        fetch('https://himstaging1.hp.gov.in/schemes/api/schemes/distinctGenders')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Data received:", data);
+                if (Array.isArray(data.data)) {
+                    setSchemeList(data.data);
+                } else {
+                    console.error("Invalid data format:", data);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        resetval(null);
+    }
+    // setSchemeList(schemeContent);
+
+
 
 
     const [schemeTableDisplay, setschemeTableDisplay] = useState(Array(SchemeList.length).fill(null))
@@ -98,8 +249,8 @@ export default function Schemes() {
                         </li>
                         {
                             numbers.map((n, i) => (
-                                <li className={`schemePageNumber ${currentPage===n? 'currentSchemePageNumber' : ''}`}>
-                                    <a className={`schemePageNumberAnchorTags ${currentPage===n? 'currentschemePageNumberAnchorTag' : ''}`} href='#' onClick={() => changeCurrentPage(n)}>{n}</a>
+                                <li className={`schemePageNumber ${currentPage === n ? 'currentSchemePageNumber' : ''}`}>
+                                    <a className={`schemePageNumberAnchorTags ${currentPage === n ? 'currentschemePageNumberAnchorTag' : ''}`} href='#' onClick={() => changeCurrentPage(n)}>{n}</a>
                                 </li>
                             ))
                         }
@@ -109,7 +260,7 @@ export default function Schemes() {
                     </ul>
                 </nav>
             </div>
-            {/* {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : 'Loading...'} */}
+            {/* {SchemeList ? <pre>{JSON.stringify(SchemeList, null, 2)}</pre> : 'Loading...'} */}
         </div>
     )
 }
