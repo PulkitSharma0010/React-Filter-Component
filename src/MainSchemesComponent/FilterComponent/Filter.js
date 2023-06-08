@@ -4,7 +4,7 @@ import CheckBoxComponent from './CheckBoxComponent'
 import { useState } from 'react';
 import SelectComponent from './SelectComponent'
 
-export default function Filter({ onFilterClick, setContent }) {
+export default function Filter({ onFilterClick, setContent,resetFilters }) {
 
   const [filterApplyList, setFilterApplyList] = useState([
     {
@@ -117,6 +117,7 @@ export default function Filter({ onFilterClick, setContent }) {
         }
       })
       .catch(error => console.error("Error:", error));
+      resetFilters(true);
   };
 
   const handleCheckboxChange = (category, value, isChecked) => {

@@ -32,7 +32,7 @@ export default function MainSchemesPage() {
 
   return (
     <div className='mainPage'>
-      <Filter  setContent={resetSchemeContent} onFilterClick={handleFilterClick}/>
+      <Filter  resetFilters={resetSchemeContent} setContent={resetSchemeContent} onFilterClick={handleFilterClick}/>
       <Schemes resetfilter={setResetFilter} resetval={setResetNull} val={resetVal} filter={FilterValue} />
     </div>
   )

@@ -21,7 +21,7 @@
 }
 .schemeTableButton{
     display: block;
-    margin-left: auto;
+    /* margin-left: auto; */
     background-color: inherit;
     border: none;
     cursor: pointer;
@@ -31,4 +31,21 @@
     background-color: #0d6efd;
     padding: 0.25rem;
     border-radius: 0.35rem;
+}
+.schemeCardMainDiv{
+    width: 100%;
+    height: 100%;
+}
+.schemeCardDiv{
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+.schemeCardSpan{
+    display: block;
+    border: 1px solid #0d6efd;
+    color: #0d6efd;
+    background-color: rgb(255 255 255);
+    border-radius: 0.35rem;
+    padding: 2px 4px;
 }
