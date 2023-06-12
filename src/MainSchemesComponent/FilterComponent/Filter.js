@@ -1,10 +1,59 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./Filter.css"
 import CheckBoxComponent from './CheckBoxComponent'
 import { useState } from 'react';
 import SelectComponent from './SelectComponent'
 
-export default function Filter({ onFilterClick, setContent,resetFilters }) {
+export default function Filter({ onFilterClick, resetContent,updatefilClick}) {
+
+
+  const theFilterArray=[
+    {
+      'Gender': [],
+    },
+    {
+      'Age': [],
+    },
+    {
+      'Caste': [],
+    },
+    {
+      'Level': [],
+    },
+    {
+      'Residence': [],
+    },
+    {
+      'Minority': [],
+    },
+    {
+      'Disability': [],
+    },
+    {
+      'Disability Percentage': [],
+    },
+    {
+      'Benefit Type': [],
+    },
+    {
+      'Marital Status': [],
+    },
+    {
+      'Below Poverty Line': [],
+    },
+    {
+      'Employment Status': [],
+    },
+    {
+      Occupation: [],
+    },
+    {
+      Qualification: [],
+    },
+    {
+      'Application Mode': [],
+    },
+  ]
 
   const [filterApplyList, setFilterApplyList] = useState([
     {
@@ -53,6 +102,7 @@ export default function Filter({ onFilterClick, setContent,resetFilters }) {
       'Application Mode': [],
     },
   ]);
+
   const FilterList = [
     {
       'Gender': ['Male', 'Female'],
@@ -105,24 +155,11 @@ export default function Filter({ onFilterClick, setContent,resetFilters }) {
 
   const resetClick = () => {
     setCheckboxStatus({});
-    console.log("Fetching data from the API...");
-    fetch('https://himstaging1.hp.gov.in/schemes/api/schemes/distinctGenders')
-      .then(response => response.json())
-      .then(data => {
-        console.log("Data received:", data);
-        if (Array.isArray(data.data)) {
-          setContent(data.data);
-        } else {
-          console.error("Invalid data format:", data);
-        }
-      })
-      .catch(error => console.error("Error:", error));
-      resetFilters(true);
+      resetContent(true);
+      setFilterApplyList(theFilterArray);
   };
 
   const handleCheckboxChange = (category, value, isChecked) => {
-
-    console.log("vALUE: ", typeof value);
 
     if (((category === 'Age') || (category === 'Disability Percentage'))) {
       setCheckboxStatus((prevStatus) => ({
@@ -156,7 +193,6 @@ export default function Filter({ onFilterClick, setContent,resetFilters }) {
 
       setFilterApplyList((prevState) => {
         const categoryIndex = prevState.findIndex(obj => category in obj);
-        console.log("Checked Value is: ", isChecked)
         if (isChecked == false) {
           if (prevState[categoryIndex][category]?.includes(value)) {
             prevState[categoryIndex][category] = prevState[categoryIndex][category].filter(item => item !== value);
@@ -177,13 +213,12 @@ export default function Filter({ onFilterClick, setContent,resetFilters }) {
         ];
       });
     }
-
-    // onFilterClick(value)
+      updatefilClick(true);
+    };
+    
+    useEffect(() => {
       onFilterClick(filterApplyList)
-
-  };
-
-  console.log("Filtered List : ", filterApplyList);
+    },filterApplyList);
 
   return (
     <div className='mainFilterDiv'>

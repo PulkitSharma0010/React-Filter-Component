@@ -6,34 +6,25 @@ import "./MainSchemesPage.css"
 export default function MainSchemesPage() {
 
   const [FilterValue,setFilterValue]  =useState([]);
+  const [updateFilterValsClick,setupdateFilterValsClick]=useState(false);
   const [resetVal,setResetVal]=useState(null);
-
-  // const handleFilterClick = (value) => {
-  //   if(value=="Female"){
-  //   setFilterValue("Female");}
-  //   if(value=="Male"){
-  //     setFilterValue("Male");
-  //   }
-  // };
 
   const handleFilterClick = (value) => {
       setFilterValue(value);
     };
 
+    const filterClicked=(value)=>{
+      setupdateFilterValsClick(value);
+    }
+
   const resetSchemeContent=(val)=>{
     setResetVal(val);
-  }
-  const setResetNull=()=>{
-    setResetVal(null);
-  }
-  const setResetFilter=()=>{
-    setFilterValue(null);
   }
 
   return (
     <div className='mainPage'>
-      <Filter  resetFilters={resetSchemeContent} setContent={resetSchemeContent} onFilterClick={handleFilterClick}/>
-      <Schemes resetfilter={setResetFilter} resetval={setResetNull} val={resetVal} filter={FilterValue} />
+      <Filter  updatefilClick={filterClicked} filterArrayVal={FilterValue} resetFilters={handleFilterClick} resetContent={resetSchemeContent} onFilterClick={handleFilterClick}/>
+      <Schemes filClick={updateFilterValsClick} updatefilClick={filterClicked} resetfilter={handleFilterClick} filter={FilterValue} resetval={resetSchemeContent} val={resetVal} />
     </div>
   )
 }

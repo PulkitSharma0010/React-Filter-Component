@@ -4,4 +4,5 @@
 .mainPage{
     display: flex;
     justify-content: space-between;
+    /* background: linear-gradient(135deg, #0d6efd, #002a67); */
 }

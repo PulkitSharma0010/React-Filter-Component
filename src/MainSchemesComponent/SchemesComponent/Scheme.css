@@ -1,5 +1,7 @@
 .schemeDiv{
     padding: 1.5rem;
+    box-shadow: 5px 10px 10px #888888;
+    border-radius: 1.25rem;
 }
 .departmentName{
     font-weight: 400;
@@ -21,7 +23,6 @@
 }
 .schemeTableButton{
     display: block;
-    /* margin-left: auto; */
     background-color: inherit;
     border: none;
     cursor: pointer;
